@@ -33,8 +33,8 @@ var documentRoot = argv.d || process.cwd();
 prompt.get({
   properties: {
     host: {
-      description: "Hostname?",
-      required: true
+      description: argv.h ? lib.format("Hostname ({0})?", argv.h) : "Hostname?",
+      required: !argv.h
     },
     documentRoot: {
       description: lib.format("Document root ({0})?", documentRoot)
@@ -46,7 +46,7 @@ prompt.get({
   }
   var host = result.host;
   var cfg = {
-    "serverName": host,
+    "serverName": host || argv.h,
     "documentRoot": resolvePath(result.documentRoot || documentRoot),
     "errorLog": lib.format("/var/log/apache2/{0}_error.log", host),
     "accessLog": lib.format("/var/log/apache2/{0}_access.log", host)

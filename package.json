@@ -1,0 +1,15 @@
+{
+  "name": "vh-install",
+  "version": "0.1.1",
+  "private": true,
+  "bin": {
+    "vh-install": "./vh-install.js"
+  },
+  "dependencies": {
+    "dot": "~1.0.2",
+    "optimist": "~0.6.0",
+    "prompt": "~0.2.11",
+    "grunt": "~0.4.1",
+    "async": "~0.2.9"
+  }
+}

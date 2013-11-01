@@ -1,0 +1,8 @@
+{
+  "hostId"       : "demo",
+  "serverName"   : "loc.demo.com",
+  "serverAlias"  : "loc.demo.com",
+  "documentRoot" : "./demo/web",
+  "errorLog"     : "/var/log/apache2/demo_error.log",
+  "accessLog"    : "/var/log/apache2/demo_access.log"
+}

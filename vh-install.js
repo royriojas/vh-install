@@ -44,9 +44,9 @@ prompt.get({
   if (err) {
     throw err;
   }
-  var host = result.host;
+  var host = result.host || argv.h;
   var cfg = {
-    "serverName": host || argv.h,
+    "serverName": host,
     "documentRoot": resolvePath(result.documentRoot || documentRoot),
     "errorLog": lib.format("/var/log/apache2/{0}_error.log", host),
     "accessLog": lib.format("/var/log/apache2/{0}_access.log", host)

@@ -3,7 +3,11 @@
 var lib = require('./lib.js'),
   dot = require('dot'),
   prompt = require('prompt'),
-  argv = prompt.override = require('optimist').argv,
+  argv = prompt.override = require('optimist')
+    .alias('d', 'documentRoot')
+    .alias('cfg', 'config')
+    .alias('h', 'host')
+    .argv,
   path = require('path'),
   fs = require('fs'),
   grunt = require('grunt'),
@@ -12,7 +16,6 @@ var lib = require('./lib.js'),
 
 dot.templateSettings.strip = false;
 
-prompt.start();
 
 // @breck7   
 // https://github.com/breck7
@@ -27,6 +30,8 @@ function makeBackup(file) {
   var bk = file + '_bk_' + Date.now();
   fs.createReadStream(file).pipe(fs.createWriteStream(bk));
 }
+
+prompt.start();
 
 var documentRoot = argv.d || process.cwd();
 
@@ -49,7 +54,11 @@ prompt.get({
     "serverName": host,
     "documentRoot": resolvePath(result.documentRoot || documentRoot),
     "errorLog": lib.format("/var/log/apache2/{0}_error.log", host),
-    "accessLog": lib.format("/var/log/apache2/{0}_access.log", host)
+    "accessLog": lib.format("/var/log/apache2/{0}_access.log", host),
+    "hosts" : [{
+      "ip" : '127.0.0.1',
+      "host" : host
+    }]
   };
 
   var vhostFile = '/etc/apache2/extra/httpd-vhosts.conf';
@@ -66,7 +75,7 @@ prompt.get({
   var hostRendered = dot.template(hContent);
 
   var vOContent = vHostRenderer(cfg);
-  var oContent = hostRendered(cfg);
+  var oContent = hostRendered();
 
   async.parallel(
     [

@@ -75,7 +75,7 @@ prompt.get({
   var hostRendered = dot.template(hContent);
 
   var vOContent = vHostRenderer(cfg);
-  var oContent = hostRendered();
+  var oContent = hostRendered(cfg);
 
   async.parallel(
     [

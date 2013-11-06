@@ -5,6 +5,7 @@ var lib = require('./lib.js'),
   resolvePath = require('./resolve-path'),
   appendToFile = require('./append-to-file'),
   async = require('async'),
+  grunt = require('grunt'),
   argv = prompt.override = require('optimist')
     .alias('d', 'documentRoot')
     .alias('ssl-key', 'sslServerKeyFile')

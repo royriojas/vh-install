@@ -13,10 +13,11 @@ function makeBackup(file) {
 
 module.exports = function appendToFile(fileToAppend, templateFile, data) {
   return function(cb) {
-    var templateFile = path.resolve(dir, templateFile),
-        templateContent = grunt.file.read(templateFile),
+    var tFile = path.resolve(dir, templateFile),
+        templateContent = grunt.file.read(tFile),
         renderer = dot.template(templateContent),
         renderedContent = renderer(data);
+
     makeBackup(fileToAppend);
     fs.appendFile(fileToAppend, renderedContent, function(err) {
       if (err) {

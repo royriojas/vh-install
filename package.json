@@ -1,6 +1,6 @@
 {
   "name": "vh-install",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "bin": {
     "vh-install": "./vh-install.js"
   },

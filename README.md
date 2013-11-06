@@ -3,7 +3,11 @@ vhost-install
 
 Easy setup of development virtual hosts under OSx. 
 
-# Usage
+## Install
+
+    npm i -g git+ssh://git@github.com:royriojas/vhost-install.git
+
+## Usage
 
 
     sudo vh-install -d /path/to/some/document/root -h some.domain.com

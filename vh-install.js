@@ -45,9 +45,15 @@ prompt.get({
     throw err;
   }
   var host = result.host || argv.h;
+  var documentRoot = resolvePath(result.documentRoot);
+
+  if (!grunt.file.exists(documentRoot)) {
+    throw new Error(lib.format("documentRoot does not exists: {0}", documentRoot));
+  }
+
   var cfg = {
     serverName: host,
-    documentRoot: resolvePath(result.documentRoot),
+    documentRoot: documentRoot,
     errorLog: lib.format("/var/log/apache2/{0}_error.log", host),
     accessLog: lib.format("/var/log/apache2/{0}_access.log", host),
     hosts : [{
@@ -57,9 +63,20 @@ prompt.get({
   };
 
   if (argv.ssl) {
+    var sslServerKeyFile = resolvePath(result.sslServerKeyFile),
+      sslCertificateFile = resolvePath(result.sslCertificateFile);
+
+    if (!grunt.file.exists(sslServerKeyFile)) {
+      throw new Error(lib.format("sslServerKeyFile does not exists: {0}", sslServerKeyFile));
+    }
+
+    if (!grunt.file.exists(sslCertificateFile)) {
+      throw new Error(lib.format("sslCertificateFile does not exists: {0}", sslCertificateFile));
+    }
+
     lib.extend(cfg, {
-      sslServerKeyFile : resolvePath(result.sslServerKeyFile),
-      sslCertificateFile : resolvePath(result.sslCertificateFile)
+      sslServerKeyFile : sslServerKeyFile,
+      sslCertificateFile : sslCertificateFile
     });
   }
 

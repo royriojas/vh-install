@@ -23,9 +23,6 @@
   LogLevel warn
   CustomLog {{= it.accessLog }} combined
 
-  KeepAlive On
-  KeepAliveTimeout 2
-
 </VirtualHost>
 
 

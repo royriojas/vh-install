@@ -5,7 +5,7 @@ Easy setup of development virtual hosts under OSx.
 
 ## Install
 
-    npm i -g git+ssh://git@github.com:royriojas/vhost-install.git
+    npm i -g git://github.com/royriojas/vhost-install
 
 ## Usage
 

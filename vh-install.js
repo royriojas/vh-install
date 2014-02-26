@@ -109,7 +109,7 @@ prompt.get({
     });
   }
 
-  tasks.push(appendToFile('/etc/hosts', './templates/host.tpl', cfg));
+  tasks.push(appendToFile('/etc/hosts', './templates/host.tpl', cfg, argv.test));
 
   async.parallel(
     tasks,

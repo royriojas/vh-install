@@ -124,13 +124,20 @@ prompt.get({
         return;
       }
 
-      grunt.util.spawn({
-        cmd: cmd
-      }, function (err, result, code) {
+      var cp = require('child_process');
+      cp.exec(cmd, function ( err, stdout, stderr ) {
         if (err) throw err;
         console.log('the site %s was enabled', cfg.serverName);
         console.log('All done!');
       });
+
+      // grunt.util.spawn({
+      //   cmd: cmd
+      // }, function (err, result, code) {
+      //   if (err) throw err;
+      //   console.log('the site %s was enabled', cfg.serverName);
+      //   console.log('All done!');
+      // });
     }
   );  
 });

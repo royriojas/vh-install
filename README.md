@@ -59,7 +59,15 @@ and add the following entry to your */etc/hosts*
     # the path could be either relative or absolute
     sudo vh-install -d ./document/root -h some.domain.com --ssl --ssl-key ./apache-conf/server.key --ssl-cert ./apache-conf/server.crt
 
-if *--ssl* option is specified then the following vhost will be added to */etc/apache2/extra/httpd-ssl.conf*
+    # create a virtual host "some.domain.com" with document root relative to the current execution folder ./document/root in linux
+    sudo vh-install -d ./document/root -h some.domain.com --lnx
+
+    # Just show what actions will the command do with the --test parameter
+    sudo vh-install -d ./document/root -h some.domain.com --lnx --test
+    sudo vh-install -d ./document/root -h some.domain.com --ssl --test --ssl-key ./apache-conf/server.key --ssl-cert ./apache-conf/server.crt
+
+
+if `--ssl` option is specified then the following vhost will be added to `/etc/apache2/extra/httpd-ssl.conf`
 
    <VirtualHost *:443>
      SSLEngine on
@@ -91,5 +99,8 @@ if *--ssl* option is specified then the following vhost will be added to */etc/a
 
    </VirtualHost>
 
-Do not forget to restart apache
+~~Do not forget to restart apache~~ ** Apache is now restarted from within the script
 
+if `--lnx` option is specified then a virtual host file will be created inside the `/etc/apache2/sites-available/` folder and `a2ensite` will be called to add it.
+
+if `--test` is specified then nothing will be actually executed and the commands will be printed to the stdout.

@@ -3,10 +3,11 @@
 var lib = require('./lib.js'),
   prompt = require('prompt'),
   resolvePath = require('./resolve-path'),
+  renderTemplate = require('./render-template'),
   appendToFile = require('./append-to-file'),
   async = require('async'),
   grunt = require('grunt'),
-  argv = prompt.override = require('optimist')
+  argv = prompt.override = require('yargs')
     .alias('d', 'documentRoot')
     .alias('ssl-key', 'sslServerKeyFile')
     .alias('ssl-cert', 'sslCertificateFile')
@@ -26,7 +27,7 @@ var props = {
   }
 };
 
-if (argv.ssl) {
+if (argv.ssl && !argv.lnx) {
   lib.extend(props, {
     sslCertificateFile : {
       description : "SSL Certificate File?",
@@ -63,7 +64,7 @@ prompt.get({
     }]
   };
 
-  if (argv.ssl) {
+  if (argv.ssl && !argv.lnx) {
     var sslServerKeyFile = resolvePath(result.sslServerKeyFile),
       sslCertificateFile = resolvePath(result.sslCertificateFile);
 
@@ -84,17 +85,52 @@ prompt.get({
 
   var tasks = [];
 
-  if (argv.ssl) {
-    tasks.push(appendToFile('/etc/apache2/extra/httpd-ssl.conf', './templates/vhost-ssl.tpl', cfg));
+  if (argv.ssl && !argv.lnx) {
+    tasks.push(appendToFile('/etc/apache2/extra/httpd-ssl.conf', './templates/vhost-ssl.tpl', cfg, argv.test));
   }
 
-  tasks.push(appendToFile('/etc/apache2/extra/httpd-vhosts.conf', './templates/vhost.tpl', cfg));
+  if (!argv.lnx) {
+    tasks.push(appendToFile('/etc/apache2/extra/httpd-vhosts.conf', './templates/vhost.tpl', cfg, argv.test));
+  }
+  else {
+    tasks.push(function (cb) {
+      var content = renderTemplate('./templates/vhost.tpl', cfg, argv.test);
+      var filePath = '/etc/apache2/sites-available/' + cfg.serverName;
+      
+
+      if (argv.test) {
+        console.log('the file %s will be created with the following content: \n\n%s', filePath, content);
+        
+        cb && cb();
+        return;
+      }
+      grunt.file.write(filePath, content);  
+      cb && cb();
+    });
+  }
+
   tasks.push(appendToFile('/etc/hosts', './templates/host.tpl', cfg));
 
   async.parallel(
     tasks,
     function() {
-      console.log('done!');
+      console.log('Enabling %s', cfg.serverName);
+
+      var cmd = argv.lnx ? 'sudo a2ensite ' + cfg.serverName + ' && sudo service apache2 restart' 
+                         : 'sudo apachectl restart';
+
+      if (argv.test) {
+        console.log('the following command would have being executed: %s', cmd);
+        return;
+      }
+
+      grunt.util.spawn({
+        cmd: cmd
+      }, function (err, result, code) {
+        if (err) throw err;
+        console.log('the site %s was enabled', cfg.serverName);
+        console.log('All done!');
+      });
     }
-  );
+  );  
 });

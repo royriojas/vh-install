@@ -11,13 +11,18 @@ function makeBackup(file) {
   fs.createReadStream(file).pipe(fs.createWriteStream(bk));
 }
 
-module.exports = function appendToFile(fileToAppend, templateFile, data) {
+module.exports = function appendToFile(fileToAppend, templateFile, data, doNotWrite) {
   return function(cb) {
     var tFile = path.resolve(dir, templateFile),
         templateContent = grunt.file.read(tFile),
         renderer = dot.template(templateContent),
         renderedContent = renderer(data);
 
+    if (doNotWrite) {
+      console.log('the file %s will have the following append to it: \n\n %s', fileToAppend, renderedContent);
+      cb && cb()
+      return;
+    }
     makeBackup(fileToAppend);
     fs.appendFile(fileToAppend, renderedContent, function(err) {
       if (err) {

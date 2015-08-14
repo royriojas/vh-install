@@ -1,14 +1,73 @@
 {
   "name": "vh-install",
-  "version": "0.1.8",
-  "bin": {
-    "vh-install": "./vh-install.js"
+  "version": "0.0.1",
+  "scripts": {
+    "beautify": "esbeautifier index.js 'src/**/*.js' 'lib/**/*.js' 'bin/**/*.js' 'specs/**/*.js'",
+    "beautify-check": "esbeautifier -k index.js 'src/**/*.js' 'lib/**/*.js' 'bin/**/*.js' 'specs/**/*.js'",
+    "eslint": "eslinter index.js 'src/**/*.js' 'lib/**/*.js' 'bin/**/*.js' 'specs/**/*.js'",
+    "test": "mocha-runner 'specs/**/*.js'",
+    "cover": "istanbul cover -x 'specs/**/*.js' mocha-runner 'specs/**/*.js' html text-summary",
+    "watch": "npm run cover && watch-spawn -p 'specs/**/*.js' -p 'index.js' -p 'src/**/*.js' npm run cover",
+    "lint": "npm run beautify-check && npm run eslint",
+    "autofix": "npm run beautify && npm run eslint",
+    "check": "npm run lint && npm test",
+    "changelog": "changelogx -f markdown -o ./changelog.md",
+    "do-changelog": "npm run changelog && git add ./changelog.md && git commit -m 'DOC: Generate changelog' --no-verify",
+    "install-hooks": "prepush install && changelogx install-hook && precommit install",
+    "pre-v": "npm run check",
+    "post-v": "npm run do-changelog && git push --no-verify && git push --tags --no-verify",
+    "bump-major": "npm run pre-v && npm version major -m 'BLD: Release v%s' && npm run post-v",
+    "bump-minor": "npm run pre-v && npm version minor -m 'BLD: Release v%s' && npm run post-v",
+    "bump-patch": "npm run pre-v && npm version patch -m 'BLD: Release v%s' && npm run post-v"
   },
+  "bin": {
+    "vh-install": "./bin/vh-install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/royriojas/vh-install"
+  },
+  "license": "MIT",
+  "author": "Roy Riojas (http://royriojas.com)",
+  "prepush": [
+    "npm run check"
+  ],
+  "precommit": [
+    "npm run check"
+  ],
+  "bugs": {
+    "url": "https://github.com/royriojas/vh-install/issues"
+  },
+  "homepage": "https://github.com/royriojas/vh-install",
+  "keywords": [
+    "beautifier",
+    "less",
+    "css",
+    "csscomb",
+    "csscomb cli",
+    "css beautifier",
+    "less beautifier",
+    "prettify"
+  ],
   "dependencies": {
-    "dot": "~1.0.2",
-    "prompt": "~0.2.11",
-    "grunt": "~0.4.2",
-    "async": "~0.2.9",
-    "yargs": "~1.1.3"
+    "async": "^0.2.9",
+    "clix-logger": "^0.1.3",
+    "dot": "^1.0.2",
+    "extend": "^3.0.0",
+    "prompt": "^0.2.11",
+    "stringformat": "0.0.5",
+    "write": "^0.2.1",
+    "yargs": "^1.1.3"
+  },
+  "devDependencies": {
+    "changelogx": "^1.0.18",
+    "esbeautifier": "^4.2.9",
+    "eslinter": "^2.3.2",
+    "istanbul": "^0.3.17",
+    "mocha-runner": "^1.0.8",
+    "precommit": "^1.1.5",
+    "prepush": "^3.1.4",
+    "proxyquire": "^1.6.0",
+    "watch-spawn": "^1.0.5"
   }
 }

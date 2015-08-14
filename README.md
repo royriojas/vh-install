@@ -1,11 +1,18 @@
-vhost-install
+vh-install
 =============
 
-Easy setup of development virtual hosts under OSx. 
+Easy setup of development virtual hosts under OSx.
+
+TODO:
+
+- support other *nix environments
+- support windows?
+- proper cli with help and version (use clix?)
+- add unit tests
 
 ## Install
 
-    npm i -g git://github.com/royriojas/vhost-install
+    npm i -g vh-install
 
 ## Usage
 
@@ -13,7 +20,7 @@ Easy setup of development virtual hosts under OSx.
     sudo vh-install -d /path/to/some/document/root -h some.domain.com
 
 This will add the following to the */etc/apache2/extra/httpd-vhosts.conf* file
- 
+
     <VirtualHost *:80>
 
       ServerName some.domain.com
@@ -60,11 +67,11 @@ and add the following entry to your */etc/hosts*
     sudo vh-install -d ./document/root -h some.domain.com --ssl --ssl-key ./apache-conf/server.key --ssl-cert ./apache-conf/server.crt
 
     # create a virtual host "some.domain.com" with document root relative to the current execution folder ./document/root in linux
-    sudo vh-install -d ./document/root -h some.domain.com --lnx
+    sudo vh-install -d ./document/root -h some.domain.com
 
-    # Just show what actions will the command do with the --test parameter
-    sudo vh-install -d ./document/root -h some.domain.com --lnx --test
-    sudo vh-install -d ./document/root -h some.domain.com --ssl --test --ssl-key ./apache-conf/server.key --ssl-cert ./apache-conf/server.crt
+    # Just show what actions will the command do with the --dry-run parameter
+    sudo vh-install -d ./document/root -h some.domain.com --dry-run
+    sudo vh-install -d ./document/root -h some.domain.com --ssl --dry-run --ssl-key ./apache-conf/server.key --ssl-cert ./apache-conf/server.crt
 
 
 if `--ssl` option is specified then the following vhost will be added to `/etc/apache2/extra/httpd-ssl.conf`
@@ -77,6 +84,7 @@ if `--ssl` option is specified then the following vhost will be added to `/etc/a
 
       DocumentRoot /resolve/path/to/some/document/root
       <Directory "/resolve/path/to/some/document/root">
+       Require all granted
        AllowOverride All
        Allow from All
       </Directory>
@@ -101,6 +109,6 @@ if `--ssl` option is specified then the following vhost will be added to `/etc/a
 
 ~~Do not forget to restart apache~~ ** Apache is now restarted from within the script
 
-if `--lnx` option is specified then a virtual host file will be created inside the `/etc/apache2/sites-available/` folder and `a2ensite` will be called to add it.
+In linux platforms a virtual host file will be created inside the `/etc/apache2/sites-available/` folder and `a2ensite` will be called to add it.
 
-if `--test` is specified then nothing will be actually executed and the commands will be printed to the stdout.
+if `--dry-run` is specified then nothing will be actually executed and the commands will be printed to the stdout.

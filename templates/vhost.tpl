@@ -4,6 +4,7 @@
 
   DocumentRoot {{= it.documentRoot }}
   <Directory "{{= it.documentRoot }}">
+    Require all granted
     AllowOverride All
     Allow from All
   </Directory>

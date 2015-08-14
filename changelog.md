@@ -1,5 +1,10 @@
 
 # vh-install - Changelog
+## v0.0.4
+- **Documentation**
+  - Better Readme - [bb5c3cf]( https://github.com/royriojas/vh-install/commit/bb5c3cf ), [royriojas](https://github.com/royriojas), 13/08/2015 23:06:03
+
+    
 ## v0.0.3
 - **Documentation**
   - Add link to changelog and license - [0e76568]( https://github.com/royriojas/vh-install/commit/0e76568 ), [royriojas](https://github.com/royriojas), 13/08/2015 23:00:46

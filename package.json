@@ -1,6 +1,6 @@
 {
   "name": "vh-install",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "beautify": "esbeautifier index.js 'src/**/*.js' 'lib/**/*.js' 'bin/**/*.js' 'specs/**/*.js'",
     "beautify-check": "esbeautifier -k index.js 'src/**/*.js' 'lib/**/*.js' 'bin/**/*.js' 'specs/**/*.js'",

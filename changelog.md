@@ -1,5 +1,10 @@
 
 # vh-install - Changelog
+## v0.0.3
+- **Documentation**
+  - Add link to changelog and license - [0e76568]( https://github.com/royriojas/vh-install/commit/0e76568 ), [royriojas](https://github.com/royriojas), 13/08/2015 23:00:46
+
+    
 ## v0.0.2
 - **Refactoring**
   - Add building scripts - [74faa63]( https://github.com/royriojas/vh-install/commit/74faa63 ), [royriojas](https://github.com/royriojas), 13/08/2015 22:59:16

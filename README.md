@@ -1,5 +1,4 @@
-vh-install
-=============
+# vh-install
 
 Easy setup of development virtual hosts under OSx.
 
@@ -112,3 +111,12 @@ if `--ssl` option is specified then the following vhost will be added to `/etc/a
 In linux platforms a virtual host file will be created inside the `/etc/apache2/sites-available/` folder and `a2ensite` will be called to add it.
 
 if `--dry-run` is specified then nothing will be actually executed and the commands will be printed to the stdout.
+
+## License
+
+[MIT](./LICENSE)
+
+## Changelog
+
+[Changelog](./changelog.md)
+

@@ -71,7 +71,7 @@ function start() {
     var host = result.host || argv.h;
     var documentRoot = resolvePath( result.documentRoot );
 
-    if ( !fs.fileExistsSync( documentRoot ) ) {
+    if ( !fs.existsSync( documentRoot ) ) {
       throw new Error( format( 'documentRoot does not exists: {0}', documentRoot ) );
     }
 
@@ -92,11 +92,11 @@ function start() {
       var sslServerKeyFile = resolvePath( result.sslServerKeyFile ),
         sslCertificateFile = resolvePath( result.sslCertificateFile );
 
-      if ( !fs.fileExistsSync( sslServerKeyFile ) ) {
+      if ( !fs.existsSync( sslServerKeyFile ) ) {
         throw new Error( format( 'sslServerKeyFile does not exists: {0}', sslServerKeyFile ) );
       }
 
-      if ( !fs.fileExistsSync( sslCertificateFile ) ) {
+      if ( !fs.existsSync( sslCertificateFile ) ) {
         throw new Error( format( 'sslCertificateFile does not exists: {0}', sslCertificateFile ) );
       }
 

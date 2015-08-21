@@ -1,5 +1,10 @@
 
 # vh-install - Changelog
+## v0.0.6
+- **Bug Fixes**
+  - wrong fs.existsSync method - [941ee8e]( https://github.com/royriojas/vh-install/commit/941ee8e ), [Roy Riojas](https://github.com/Roy Riojas), 20/08/2015 20:22:06
+
+    
 ## v0.0.5
 - **Bug Fixes**
   - Completely remove references to grunt - [115f658]( https://github.com/royriojas/vh-install/commit/115f658 ), [Roy Riojas](https://github.com/Roy Riojas), 20/08/2015 20:15:01

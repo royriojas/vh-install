@@ -1,5 +1,10 @@
 
 # vh-install - Changelog
+## v0.0.5
+- **Bug Fixes**
+  - Completely remove references to grunt - [115f658]( https://github.com/royriojas/vh-install/commit/115f658 ), [Roy Riojas](https://github.com/Roy Riojas), 20/08/2015 20:15:01
+
+    
 ## v0.0.4
 - **Documentation**
   - Better Readme - [bb5c3cf]( https://github.com/royriojas/vh-install/commit/bb5c3cf ), [royriojas](https://github.com/royriojas), 13/08/2015 23:06:03

@@ -50,7 +50,7 @@
     "prettify"
   ],
   "dependencies": {
-    "async": "^0.2.9",
+    "async": "^3.2.2",
     "clix-logger": "^0.1.3",
     "dot": "^1.0.2",
     "extend": "^3.0.0",

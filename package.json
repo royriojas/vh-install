@@ -54,7 +54,7 @@
     "clix-logger": "^0.1.3",
     "dot": "^1.0.2",
     "extend": "^3.0.0",
-    "prompt": "^0.2.11",
+    "prompt": "^1.1.0",
     "stringformat": "0.0.5",
     "write": "^0.2.1",
     "yargs": "^1.1.3"
